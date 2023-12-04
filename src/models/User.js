@@ -17,13 +17,3 @@ class User extends Model {
 }
 
 export default User;
-
-// module.exports = (sequelize, Sequelize) => {
-//   const User = sequelize.define("Users", {
-//     balance: {
-//       type: Sequelize.INTEGER,
-//     },
-//   });
-
-//   return User;
-// };
