@@ -10,12 +10,16 @@ services:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=password
 
-  mongodb:
-    image: mongo:latest
+  postgres:
+    image: postgres:14-alpine
     ports:
-      - "27017:27017"
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=taskdb
     volumes:
-      - mongodb_data:/data/db
+      - postgres_data:/var/lib/postgresql/data
 
   nginx:
     image: nginx:latest
@@ -29,13 +33,13 @@ services:
   app:
     build: .
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/taskdb
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/taskdb
       - RABBITMQ_URL=amqp://user:password@rabbitmq:5672
     deploy:
       replicas: 5
     depends_on:
-      - mongodb
+      - postgres
       - rabbitmq
 
 volumes:
-  mongodb_data:
+  postgres_data:
