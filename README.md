@@ -1,27 +1,58 @@
-# Balance Management API
+# Distributed Task Processing System
+
+A scalable distributed task processing system built with Node.js, RabbitMQ, and MongoDB, featuring load balancing and parallel task execution.
+
+## System Architecture
+
+- **Load Balancer (Nginx)**: Distributes incoming API requests across multiple application instances
+- **Message Queue (RabbitMQ)**: Handles distributed task scheduling and execution
+- **Database (MongoDB)**: Stores task execution history
+- **Application Instances**: Multiple Node.js servers processing tasks in parallel
+
+## Features
+
+- Parallel processing with 5+ application instances
+- 10 background tasks with configurable intervals
+- Minimum 2-minute task execution time
+- Distributed task locking to prevent duplicate execution
+- Real-time task status monitoring
+- Task execution history
+- No master server (peer-to-peer architecture)
+- Automatic task distribution across instances
+- Fault tolerance and high availability
 
 ## Prerequisites
-- Node.js 16 or higher
+
 - Docker and Docker Compose
+- Node.js 16+
+- MongoDB
+- RabbitMQ
+- Nginx
 
-## Setup
+## Installation
 
-1. Install dependencies:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <project-directory>
+```
+
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Start PostgreSQL:
+3. Start PostgreSQL:
 ```bash
 npm run docker:up
 ```
 
-3. Initialize database and run migrations:
+4. Initialize database and run migrations:
 ```bash
 npm run init
 ```
 
-4. Start the application:
+5. Start the application:
 ```bash
 npm start
 ```
